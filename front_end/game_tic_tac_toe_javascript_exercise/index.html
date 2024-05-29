@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIC TAC TOE</title>
+    <link rel="icon" href="../asset/images/icon.jpg" type="image/gif" />
+    <link rel="stylesheet" href="../asset/css/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1 class="game_name">Tic Tac toe</h1>
+
+      <div class="wrap_x_o">
+        <h1 index="x_i" onclick="selection_icon(event)" class="selected">
+          X
+          <p class="x_win">-</p>
+        </h1>
+
+        <h1 index="o_i" onclick="selection_icon(event)">
+          O
+          <p class="o_win">-</p>
+        </h1>
+      </div>
+
+      <div class="wrap_title">
+        <p>Lượt chơi của:</p>
+        <h2>X</h2>
+      </div>
+
+      <div class="wrap_broad">
+        <div class="broad"></div>
+      </div>
+
+      <div>
+        <p class="btn_re-start" onclick="re_start()">Khởi động lại trò chơi</p>
+      </div>
+    </main>
+    <script src="./index.js"></script>
+  </body>
+</html>

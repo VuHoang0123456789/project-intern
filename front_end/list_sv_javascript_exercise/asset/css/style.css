@@ -1,0 +1,276 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css);
+
+:root {
+  --red-color: red;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+label {
+  display: block;
+}
+
+i {
+  padding: 5px;
+  cursor: pointer;
+}
+
+label,
+input,
+button,
+select,
+option {
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  padding: 5px 10px;
+  background: var(--red-color);
+  border-color: transparent;
+  font-size: 16px;
+}
+
+button:hover {
+  filter: brightness(0.9);
+}
+
+input {
+  outline: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 0 !important;
+}
+
+.center {
+  text-align: center !important;
+}
+.left {
+  text-align: left !important;
+}
+.right {
+  text-align: right !important;
+}
+
+.min_width-100 {
+  min-width: 100px !important;
+}
+
+.min_width-200 {
+  min-width: 200px !important;
+}
+
+.form_search label,
+.form_search input,
+.form_search button {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.form_search label,
+.wrap_input label {
+  font-weight: 600;
+}
+
+.form_search input,
+.bottom .wrap_table,
+.bottom .form_edit {
+  border: 1px solid var(--red-color);
+}
+
+.wrap_input,
+.wrap_radio,
+.wrap_radio-item,
+.wrap_btn,
+.form_search {
+  display: flex;
+  align-items: center;
+}
+
+.wrap_input input,
+.wrap_input select {
+  flex: 1;
+  min-width: 230px;
+  padding: 5px 15px;
+}
+
+.web_title {
+  width: fit-content;
+  margin: 20px auto;
+  font-size: 32px;
+}
+
+.form_search input {
+  margin: 0 10px;
+}
+
+.table_tile {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.bottom {
+  display: flex;
+}
+
+.bottom .form_edit {
+  padding: 41.6px 20px 0 20px;
+  margin: 20px 10px 0 10px;
+  width: 420px;
+}
+
+.bottom .wrap_table {
+  flex: 1;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.table_js {
+  width: 100%;
+}
+
+.wrap_input {
+  margin-bottom: 30px;
+}
+
+.wrap_radio-item {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.radio_lable {
+  min-width: 0;
+}
+
+.wrap_input label {
+  min-width: 120px;
+  margin-right: 10px;
+}
+
+.btn {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.requeid {
+  color: var(--red-color);
+}
+
+.wrap_radio-item label {
+  min-width: 0;
+}
+
+.header_row,
+.row {
+  min-width: 150px;
+}
+
+.header_row {
+  padding: 10px;
+  font-size: 18px;
+  color: white;
+  background-color: var(--red-color);
+}
+
+.check_box-column,
+.row_checbox {
+  width: 40px;
+  min-width: 0;
+  padding: 5px 10px;
+}
+
+.row {
+  padding: 5px 10px;
+}
+
+.error_msg {
+  display: none;
+  position: absolute;
+  margin: 0;
+  top: calc(100% + 5px);
+  left: 0;
+  font-size: 14px;
+  color: red;
+  margin: 0;
+}
+
+.form_msg {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.form_msg-wrap-btn {
+  margin-top: 15px;
+  float: right;
+}
+
+.form_msg-wrap-btn button {
+  text-transform: capitalize;
+  border-radius: 4px;
+}
+
+.btn_yes {
+  margin-right: 10px;
+}
+
+.wrap_msg .icon {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7.5px;
+  font-size: 20px;
+}
+
+.wrap_msg .icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.wrap_msg {
+  position: relative;
+  min-width: 300px;
+  max-width: 450px;
+  padding: 20px;
+  background: white;
+  border-radius: 4px;
+}
+
+.wrap_msg h5,
+.wrap_msg p {
+  margin: 0;
+  text-align: center;
+}
+
+.wrap_msg h5 {
+  font-size: 24px;
+  padding: 10px 0;
+}
+
+.wrap_msg p {
+  font-size: 18px;
+  line-height: 1.6;
+  padding: 10px 0 5px 0;
+}

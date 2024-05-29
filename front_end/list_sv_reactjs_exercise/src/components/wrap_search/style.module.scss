@@ -1,0 +1,28 @@
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    label,
+    button,
+    input {
+        padding: 7.5px 15px;
+        font-size: 16px;
+    }
+
+    input {
+        caret-color: red;
+        border-color: red;
+        margin: 0 10px 0 5px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    button {
+        color: white;
+        background-color: red;
+        border-color: transparent;
+    }
+}

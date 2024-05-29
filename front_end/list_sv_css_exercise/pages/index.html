@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách sinh viên</title>
+    <link rel="stylesheet" href="../asset/css/style.css" />
+    <link rel="icon" href="../asset/images/icon.png" type="image/gif" />
+  </head>
+  <body>
+    <main>
+      <h1 class="web_title">Danh sách sinh viên</h1>
+      <form class="form_search">
+        <label>Từ khoá: </label>
+        <input
+          class="input_search-js"
+          placeholder="Từ khoá cần tìm"
+          onkeydown="checkInput(this)"
+        />
+        <button class="btn_search" onclick="btn_search_click(event)">
+          Tìm kiếm
+        </button>
+      </form>
+
+      <div class="bottom">
+        <div class="wrap_table">
+          <h3 class="table_tile">Kết quả tìm kiếm:</h3>
+
+          <table class="table_js"></table>
+        </div>
+
+        <form class="form_edit">
+          <div class="wrap_btn">
+            <button class="btn btn_add-js">Thêm mới</button>
+            <button class="btn btn_update-js">Cập nhật</button>
+            <button class="btn btn_delete-js">Xoá</button>
+          </div>
+
+          <div class="wrap_input">
+            <label>
+              Mã sinh viên
+              <span class="requeid">(*)</span>:
+            </label>
+            <input class="student_id-js" placeholder="Mã sinh viên" required />
+          </div>
+
+          <div class="wrap_input">
+            <label>
+              Tên sinh viên
+              <span class="requeid">(*)</span>:
+            </label>
+            <input
+              class="student_name-js"
+              placeholder="Tên sinh viên"
+              required
+            />
+          </div>
+          <div class="wrap_input">
+            <label> Ngày sinh: </label>
+            <input
+              type="date"
+              class="student_birthday-js"
+              placeholder="Ngày sinh"
+            />
+          </div>
+
+          <div class="wrap_input">
+            <label>Giới tính:</label>
+            <div class="wrap_radio">
+              <div class="wrap_radio-item">
+                <input
+                  type="radio"
+                  id="male"
+                  name="fav_language"
+                  value="male"
+                  checked
+                />
+                <label class="radio_lable" for="male">Nam</label><br />
+              </div>
+              <div class="wrap_radio-item">
+                <input
+                  type="radio"
+                  id="famale"
+                  name="fav_language"
+                  value="famale"
+                />
+                <label class="radio_lable" for="famale">Nữ</label><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="wrap_input">
+            <label>Khoa <span class="requeid">(*)</span>: </label>
+
+            <select name="faculty" id="faculty" required>
+              <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+              <option value="Ngôn ngữ anh">Ngôn ngữ anh</option>
+              <option value="Du lịch">Du lịch</option>
+              <option value="Môi trường">Môi trường</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <script src="../index.js"></script>
+    </main>
+  </body>
+</html>

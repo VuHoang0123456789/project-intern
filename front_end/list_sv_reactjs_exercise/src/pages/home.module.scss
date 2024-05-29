@@ -1,0 +1,45 @@
+.home_pages {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 50px;
+
+    .title {
+        text-align: center;
+        font-size: 36px;
+    }
+
+    .wrap {
+        display: flex;
+        flex-direction: column;
+
+        .wrap_search {
+            width: fit-content;
+        }
+
+        .wrap_table,
+        .wrap_chang {
+            border: 1px solid black;
+        }
+
+        .wrap_search {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            display: flex;
+
+            .wrap_table {
+                flex: 2;
+                margin-right: 10px;
+                padding: 10px;
+            }
+
+            .wrap_chang {
+                margin-left: 10px;
+                padding: 50px 25px 10px 25px;
+                flex: 1;
+            }
+        }
+    }
+}

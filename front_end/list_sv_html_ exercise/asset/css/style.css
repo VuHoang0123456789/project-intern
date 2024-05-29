@@ -1,0 +1,164 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css);
+
+.web_title {
+  width: fit-content;
+  margin: 20px auto;
+  font-size: 32px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+}
+
+label {
+  display: block;
+}
+
+i {
+  padding: 5px;
+  cursor: pointer;
+}
+
+label,
+input,
+button,
+select,
+option {
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 0 !important;
+}
+
+.form_search {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.form_search button {
+  font-size: 18px;
+}
+
+.form_search label {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.form_search input {
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+.table_tile {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.bottom {
+  display: flex;
+}
+
+.bottom .form_edit {
+  margin-left: 60px;
+  margin-top: 50px;
+}
+
+.bottom .wrap_table {
+  width: 954px;
+  margin-top: 20px;
+}
+
+.wrap_input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.wrap_radio {
+  display: flex;
+  align-items: center;
+}
+
+.wrap_radio-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.radio_lable {
+  min-width: 0;
+}
+
+.wrap_btn {
+  display: flex;
+  align-items: center;
+}
+
+.wrap_input input,
+.wrap_input select {
+  min-width: 300px;
+  padding: 5px 15px;
+}
+.wrap_input label {
+  min-width: 120px;
+}
+
+.btn {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.requeid {
+  color: red;
+}
+
+.wrap_radio-item label {
+  min-width: 0;
+}
+
+.header_row,
+.row {
+  min-width: 150px;
+}
+
+.header_row {
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+}
+
+.check_box-column,
+.row_checbox {
+  width: 40px;
+  min-width: 0;
+  padding: 5px 10px;
+}
+
+.row {
+  padding: 5px 10px;
+}
+
+.center {
+  text-align: center !important;
+}
+.left {
+  text-align: left !important;
+}
+.right {
+  text-align: right !important;
+}

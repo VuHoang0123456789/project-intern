@@ -1,0 +1,28 @@
+.turn_comp {
+    display: flex;
+    justify-content: space-between;
+    width: var(--broad-width);
+    margin-bottom: 10px;
+
+    .wrap_x_o {
+        cursor: pointer;
+        width: 48%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 18px;
+        border: 1px solid black;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: 500;
+
+        h2 {
+            text-transform: uppercase;
+            font-size: inherit;
+        }
+    }
+
+    .selected {
+        border-bottom: 2px solid red;
+    }
+}

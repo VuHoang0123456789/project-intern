@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách sinh viên</title>
+    <link rel="stylesheet" href="../asset/css/style.css" />
+    <link rel="icon" href="../asset/images/icon.png" type="image/gif" />
+  </head>
+  <body>
+    <main>
+      <h1 class="web_title">Danh sách sinh viên</h1>
+      <form class="form_search">
+        <label>Từ khoá: </label>
+        <input
+          class="input_search-js"
+          placeholder="Từ khoá cần tìm"
+          onkeydown="checkInput(this)"
+        />
+        <button class="btn_search" onclick="btn_search_click(event)">
+          Tìm kiếm
+        </button>
+      </form>
+
+      <div class="bottom">
+        <div class="wrap_table">
+          <h3 class="table_tile">Kết quả tìm kiếm:</h3>
+
+          <table class="table_js"></table>
+        </div>
+
+        <form class="form_edit">
+          <div class="wrap_btn">
+            <button class="btn btn_add-js" onclick="btn_add_handleClick(event)">
+              Thêm mới
+            </button>
+            <button
+              class="btn btn_update-js"
+              onclick="btn_update_handelClick(event)"
+            >
+              Cập nhật
+            </button>
+            <button class="btn btn_delete-js" onclick="showFormMessage(event)">
+              Xoá
+            </button>
+          </div>
+
+          <div class="wrap_input">
+            <label>
+              Mã sinh viên
+              <span class="requeid">(*)</span>:
+            </label>
+            <div style="position: relative">
+              <input
+                class="student_id-js"
+                placeholder="Mã sinh viên"
+                required
+              />
+              <p name="studentId" class="error_msg">
+                Vui lòng nhập Mã sinh viên
+              </p>
+            </div>
+          </div>
+
+          <div class="wrap_input">
+            <label>
+              Tên sinh viên
+              <span class="requeid">(*)</span>:
+            </label>
+            <div style="position: relative">
+              <input
+                class="student_name-js"
+                placeholder="Tên sinh viên"
+                required
+              />
+
+              <p name="studentName" class="error_msg">
+                Vui lòng nhập tên sinh viên
+              </p>
+            </div>
+          </div>
+
+          <div class="wrap_input">
+            <label> Ngày sinh: </label>
+            <div style="position: relative">
+              <input
+                type="date"
+                class="student_birthday-js"
+                placeholder="Ngày sinh"
+              />
+              <p name="birthDay" class="error_msg">Vui lòng nhập ngày sinh</p>
+            </div>
+          </div>
+
+          <div class="wrap_input">
+            <label>Giới tính:</label>
+            <div class="wrap_radio">
+              <div class="wrap_radio-item">
+                <input
+                  type="radio"
+                  id="male"
+                  name="fav_language"
+                  value="male"
+                  checked
+                />
+                <label class="radio_lable" for="male">Nam</label><br />
+              </div>
+              <div class="wrap_radio-item">
+                <input
+                  type="radio"
+                  id="famale"
+                  name="fav_language"
+                  value="famale"
+                />
+                <label class="radio_lable" for="famale">Nữ</label><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="wrap_input">
+            <label>Khoa <span class="requeid">(*)</span>: </label>
+
+            <select name="faculty" id="faculty" required></select>
+          </div>
+        </form>
+
+        <div class="form_msg">
+          <div class="wrap_msg">
+            <h5>Thông báo</h5>
+            <p class="wrap_msg-content"></p>
+            <div class="form_msg-wrap-btn">
+              <button class="btn_yes" onclick="btn_delete_click()">yes</button>
+              <button class="btn_cancel" onclick="btn_cancel_click()">
+                cancel
+              </button>
+            </div>
+
+            <i class="fa-solid fa-xmark icon" onclick="btn_cancel_click()"></i>
+          </div>
+        </div>
+      </div>
+      <script src="../index.js"></script>
+    </main>
+  </body>
+</html>
