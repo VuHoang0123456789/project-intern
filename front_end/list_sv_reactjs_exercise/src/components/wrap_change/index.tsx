@@ -1,13 +1,18 @@
 import classNames from 'classnames/bind';
 import style from './style.module.scss';
-import { Student } from '../../pages/home';
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import { Student, conTextType, homePageContext } from '../../pages/home';
+import { ChangeEvent, useContext, useState } from 'react';
+import Popup from 'reactjs-popup';
+import PoppupComp from '../pop_pup';
+import 'reactjs-popup/dist/index.css';
 
 const cx = classNames.bind(style);
 
 interface IWrapChangeProps {
     student: Student;
     faculty: any;
+    isUpdate: boolean;
+    listStudentCodes: string[];
     AddNewItem: (student: Student) => void;
     UpdateItem: (studentId: string, student: Student) => void;
     DeleteItem: () => void;
@@ -20,100 +25,135 @@ type inputType = {
     placeholder: string;
     error_msg: string;
     type?: string;
+    isDisable?: boolean;
 };
 
-function WrapChange({ student, faculty, AddNewItem, UpdateItem, DeleteItem, ChangeStudent }: IWrapChangeProps) {
+function WrapChange({
+    student,
+    faculty,
+    isUpdate,
+    listStudentCodes,
+    AddNewItem,
+    UpdateItem,
+    DeleteItem,
+    ChangeStudent,
+}: IWrapChangeProps) {
     const inputs: inputType[] = [
         {
             title: 'Mã sinh viên',
-            name: 'studentId',
+            name: 'student_code',
             placeholder: 'Mã sinh viên',
             error_msg: 'Vui lòng nhập mã sinh viên',
+            isDisable: isUpdate,
         },
         {
             title: 'Tên sinh viên',
-            name: 'studentName',
+            name: 'student_name',
             placeholder: 'Tên sinh viên',
             error_msg: 'Vui lòng nhập tên sinh viên',
         },
         {
             title: 'Ngày sinh',
-            name: 'birthDay',
+            name: 'birth_day',
             placeholder: 'Ngày sinh',
             type: 'Date',
             error_msg: 'Vui lòng nhập ngày sinh',
         },
     ] as inputType[];
 
-    const [isDisabled, setIsdisabled] = useState(false);
+    const [keys, setkeys] = useState<string[]>([]);
+    const { isDisableBtn, setISDisaleBtn }: conTextType = useContext(homePageContext);
+
     function onChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         if (e.target.type === 'radio') {
-            const geneder = e.target.value === 'male' ? true : false;
-
-            ChangeStudent({ ...student, [e.target.name]: geneder });
+            ChangeStudent({ ...student, [e.target.name]: e.target.value });
             return;
         }
+
         ChangeStudent({ ...student, [e.target.name]: e.target.value });
     }
 
     function ValidateInputs() {
-        let keys: String[] = [];
+        let newkeys: string[] = [];
 
         Object.keys(student).forEach((key: string) => {
-            const value =
-                typeof student[key as keyof Student] === 'string'
-                    ? student[key as keyof Student]
-                    : student[key as keyof Student].toString();
+            const value = student[key as keyof Student].toString();
 
             if (value.replace(/\s/g, '').length === 0) {
-                keys.push(key);
+                newkeys.push(key);
             }
         });
 
-        return !keys.length > 0;
+        if (newkeys.length === 0) {
+            setkeys([]);
+            return;
+        }
+
+        setkeys(newkeys);
+
+        return newkeys.length > 0;
     }
 
-    //student[item.name as keyof Student] || ''
+    function FormartDateOfValue(key: string, value: any) {
+        if (key === 'birth_day') {
+            const date = new Date(value);
+
+            return [
+                date.getFullYear(),
+                date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`,
+                date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`,
+            ].join('-');
+        }
+
+        return value;
+    }
 
     return (
         <div>
             <div className={cx('wrap_btn')}>
                 <button
+                    disabled={isDisableBtn}
                     className={cx('btn', 'btn_add-js')}
                     onClick={() => {
-                        setIsdisabled(true);
-                        const isOk = ValidateInputs();
+                        if (ValidateInputs()) return;
 
-                        if (!isOk) return;
-
-                        setIsdisabled(false);
+                        setISDisaleBtn(true);
                         AddNewItem(student);
                     }}
                 >
                     Thêm mới
                 </button>
                 <button
+                    disabled={isDisableBtn}
                     className={cx('btn', 'btn_update-js')}
                     onClick={() => {
-                        setIsdisabled(true);
-                        const isOk = ValidateInputs();
+                        if (ValidateInputs()) return;
 
-                        if (!isOk) return;
-
-                        setIsdisabled(false);
-                        UpdateItem(student.studentId, student);
+                        setISDisaleBtn(true);
+                        UpdateItem(student.student_code, student);
                     }}
                 >
                     Cập nhật
                 </button>
-                <button
-                    className={cx('btn', 'btn_delete-js')}
-                    onClick={() => {
-                        DeleteItem();
-                    }}
+                <Popup
+                    trigger={
+                        <button className={cx('btn', 'btn_delete-js')} disabled={isDisableBtn}>
+                            Xoá
+                        </button>
+                    }
+                    modal
+                    nested
+                    disabled={listStudentCodes.length === 0}
                 >
-                    Xoá
-                </button>
+                    {(close) => (
+                        <PoppupComp
+                            onClose={() => close()}
+                            onDelete={DeleteItem}
+                            title="Xoá thông tin"
+                            content="Bạn có chắc muốn xoá thông tin của các sinh viên này không?Khi đã xoá sẽ không khôi phục lại được."
+                        />
+                    )}
+                </Popup>
             </div>
 
             {inputs.map((item: inputType, index: number) => {
@@ -125,14 +165,15 @@ function WrapChange({ student, faculty, AddNewItem, UpdateItem, DeleteItem, Chan
                         </label>
                         <div style={{ position: 'relative', flex: 1 }}>
                             <input
-                                value={student[item.name as keyof Student]}
+                                value={FormartDateOfValue(item.name, student[item.name as keyof Student])}
                                 onChange={onChange}
                                 type={item?.type || 'Text'}
                                 name={item.name}
                                 placeholder={item.placeholder}
                                 required
+                                disabled={item?.isDisable}
                             />
-                            <p className={cx('error_msg', !isDisabled || 'show')}>{item.error_msg}</p>
+                            <p className={cx('error_msg', !keys.includes(item.name) || 'show')}>{item.error_msg}</p>
                         </div>
                     </div>
                 );
@@ -148,7 +189,7 @@ function WrapChange({ student, faculty, AddNewItem, UpdateItem, DeleteItem, Chan
                             name="geneder"
                             value="male"
                             onChange={onChange}
-                            checked={student?.geneder}
+                            checked={student?.geneder === 'male'}
                         />
                         <label className={cx('radio_lable')} htmlFor="male">
                             Nam
@@ -160,9 +201,9 @@ function WrapChange({ student, faculty, AddNewItem, UpdateItem, DeleteItem, Chan
                             type="radio"
                             id="famale"
                             name="geneder"
-                            value="famale"
+                            value="female"
                             onChange={onChange}
-                            checked={!student?.geneder}
+                            checked={student?.geneder === 'female'}
                         />
                         <label className={cx('radio_lable')} htmlFor="famale">
                             Nữ
@@ -177,7 +218,7 @@ function WrapChange({ student, faculty, AddNewItem, UpdateItem, DeleteItem, Chan
                     Khoa <span className={cx('requeid')}>(*)</span>:{' '}
                 </label>
 
-                <select name="fatultyId" id="faculty" required onChange={onChange} value={student?.fatultyId}>
+                <select name="factulty_id" id="faculty" required onChange={onChange} value={student?.factulty_id}>
                     {Object.entries(faculty).map((item, index) => {
                         const fa = item as string[];
                         return (

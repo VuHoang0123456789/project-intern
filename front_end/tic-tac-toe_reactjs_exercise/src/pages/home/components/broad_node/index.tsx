@@ -15,6 +15,8 @@ export type BroadNodeType = {
     row: number;
     value?: string;
     id: number;
+    width?: number;
+    height?: number;
 };
 
 function BroadNode({ node, changeNode }: IBroadNodeProps) {
@@ -23,6 +25,7 @@ function BroadNode({ node, changeNode }: IBroadNodeProps) {
     return (
         <button
             className={cx('broad_node')}
+            style={{ color: `${node?.value === 'o' ? 'red' : 'black'}` }}
             disabled={node.value ? true : false}
             onClick={() => {
                 turnNow.ChangeTurn(!turnNow.turn_now);

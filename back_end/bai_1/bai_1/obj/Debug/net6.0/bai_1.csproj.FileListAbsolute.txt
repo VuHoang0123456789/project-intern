@@ -1,0 +1,15 @@
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\bin\Debug\net6.0\bai_1.exe
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\bin\Debug\net6.0\bai_1.deps.json
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\bin\Debug\net6.0\bai_1.runtimeconfig.json
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\bin\Debug\net6.0\bai_1.dll
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\bin\Debug\net6.0\bai_1.pdb
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.GeneratedMSBuildEditorConfig.editorconfig
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.AssemblyInfoInputs.cache
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.AssemblyInfo.cs
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.csproj.CoreCompileInputs.cache
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.sourcelink.json
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.dll
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\refint\bai_1.dll
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.pdb
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\bai_1.genruntimeconfig.cache
+E:\VuHoang\project_intern\back_end\bai_1\bai_1\obj\Debug\net6.0\ref\bai_1.dll

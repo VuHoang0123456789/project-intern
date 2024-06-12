@@ -1,7 +1,7 @@
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    --broad-width: 270px;
-    --broad-height: 270px;
+    --broad-width: 400px;
+    --broad-height: 400px;
 }
 
 html {

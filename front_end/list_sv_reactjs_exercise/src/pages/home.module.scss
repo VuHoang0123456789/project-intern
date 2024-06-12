@@ -18,7 +18,7 @@
 
         .wrap_table,
         .wrap_chang {
-            border: 1px solid black;
+            border: 1px solid red;
         }
 
         .wrap_search {
@@ -41,5 +41,10 @@
                 flex: 1;
             }
         }
+    }
+
+    .wrap_pagination {
+        padding: 10px 0;
+        margin-left: 10px;
     }
 }

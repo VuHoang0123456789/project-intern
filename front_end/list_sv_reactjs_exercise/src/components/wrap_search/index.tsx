@@ -12,7 +12,7 @@ function WrapSearch({ Search }: { Search: (value: string) => void }) {
                 onChange={(e) => {
                     setTimeout(() => {
                         Search(e.target.value);
-                    }, 500);
+                    }, 1000);
                 }}
             />
             <button>Tìm kiếm</button>

@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import BroadNode from '../broad_node';
 import { BroadNodeType } from '../broad_node';
 import { useContext, useEffect, useState } from 'react';
-import { turnContext } from '../..';
+import { BroadType, turnContext } from '../..';
 import { TurnType } from '../form_turn';
 
 const cx = classNames.bind(style);
@@ -17,7 +17,11 @@ const BroadRow = function ({ node, changeNode }: IBroadRowProps) {
     return (
         <div className={cx('broad_row')}>
             {node.map((item: BroadNodeType, index: number) => (
-                <div key={index} className={cx('wrap_node')}>
+                <div
+                    key={index}
+                    className={cx('wrap_node')}
+                    style={{ width: `${item.width}px`, height: `${item.height}px` }}
+                >
                     <BroadNode node={item} changeNode={changeNode} />
                 </div>
             ))}
@@ -25,40 +29,33 @@ const BroadRow = function ({ node, changeNode }: IBroadRowProps) {
     );
 };
 
-function Broad({ SetTurn }: { SetTurn: (turn: TurnType) => void }) {
+function Broad({ SetTurn, Broad }: { SetTurn: (turn: TurnType) => void; Broad: BroadType }) {
     const turnNow = useContext(turnContext);
-    const [broads, setBroads] = useState<BroadNodeType[][]>([
-        [
-            { id: 1, index: 0, row: 0 },
-            { id: 2, index: 1, row: 0 },
-            { id: 3, index: 2, row: 0 },
-        ],
-        [
-            { id: 4, index: 0, row: 1 },
-            { id: 5, index: 1, row: 1 },
-            { id: 6, index: 2, row: 1 },
-        ],
-        [
-            { id: 7, index: 0, row: 2 },
-            { id: 8, index: 1, row: 2 },
-            { id: 9, index: 2, row: 2 },
-        ],
-    ]);
-
-    const winPos = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
-        [1, 4, 7],
-        [2, 5, 8],
-        [3, 6, 9],
-        [1, 5, 9],
-        [3, 5, 7],
-    ];
-
-    const [wins, setWins] = useState<BroadNodeType[]>([]);
+    const [broads, setBroads] = useState<BroadNodeType[][]>([]);
+    const maxSize = 400;
     const [count, setCount] = useState(0);
     const [winner, setWinner] = useState(-1);
+
+    useEffect(() => {
+        const newBroads = [];
+        for (let x = 0; x < Broad.size; x++) {
+            const row = [];
+
+            for (let y = 0; y < Broad.size; y++) {
+                row.push({
+                    id: y,
+                    index: y,
+                    row: x,
+                    width: maxSize / Broad.size,
+                    height: maxSize / Broad.size,
+                });
+            }
+
+            newBroads.push(row);
+        }
+
+        setBroads(newBroads);
+    }, [Broad]);
 
     function changeNode(node: BroadNodeType) {
         const newTurnNow: BroadNodeType[][] = [...broads];
@@ -66,86 +63,180 @@ function Broad({ SetTurn }: { SetTurn: (turn: TurnType) => void }) {
         const newNode = { ...node, value };
         newTurnNow[node.row].splice(node.index, 1, newNode);
 
+        const isWin = Check_Horizontal(newNode.index, newNode.row, newNode?.value, Broad.size - 1);
+
+        if (isWin) {
+            const winner = newNode?.value === 'x' ? 10 : -10;
+            setWinner(winner);
+        }
+
         setCount((prev) => (prev += 1));
         setBroads(newTurnNow);
     }
 
-    useEffect(() => {
-        const value = turnNow.turn_now ? 'o' : 'x';
-        const list_1 = broads[0].filter((item) => {
-            return item?.value === value;
-        });
-        const list_2 = broads[1].filter((item) => {
-            return item?.value === value;
-        });
-        const list_3 = broads[2].filter((item) => {
-            return item?.value === value;
-        });
+    function Check_Horizontal(x: number, y: number, value: string, size: number) {
+        const x1 = x - 1;
+        const x2 = x - 2;
+        const x3 = x + 1;
+        const x4 = x + 2;
+        let isWin = false;
 
-        setWins([...list_1, ...list_2, ...list_3]);
-    }, [broads, turnNow]);
-
-    useEffect(() => {
-        if (wins.length < 3) return;
-
-        const isCheckwin = winPos.filter((item) => {
-            let isWin = true;
-            for (let index = 0; index < item.length; index++) {
-                const findIndex = wins.findIndex((win: BroadNodeType) => win.id === item[index]);
-
-                if (findIndex === -1) {
-                    isWin = false;
-                    break;
-                }
+        if (x1 >= 0 && x3 <= size) {
+            if (broads[y][x1]?.value === value && broads[y][x3]?.value === value) {
+                isWin = true;
+                return true;
             }
+        }
 
-            return isWin;
-        });
+        if (x1 >= 0 && x2 >= 0) {
+            if (broads[y][x1]?.value === value && broads[y][x2].value === value) {
+                isWin = true;
+                return true;
+            }
+        }
 
-        if (isCheckwin.length > 0 && turnNow.turn_now) {
-            setWinner(-10);
-            return;
+        if (x3 <= size && x4 <= size) {
+            if (broads[y][x3]?.value === value && broads[y][x4].value === value) {
+                isWin = true;
+                return true;
+            }
         }
-        if (isCheckwin.length > 0 && !turnNow.turn_now) {
-            setWinner(10);
-            return;
+
+        if (!isWin) return Check_vertical(x, y, value, size);
+        else return isWin;
+    }
+
+    function Check_vertical(x: number, y: number, value: string, size: number) {
+        const y1 = y - 1;
+        const y2 = y - 2;
+        const y3 = y + 1;
+        const y4 = y + 2;
+        let isWin = false;
+
+        if (y1 >= 0 && y3 <= size) {
+            if (broads[y1][x]?.value === value && broads[y3][x]?.value === value) {
+                isWin = true;
+                return true;
+            }
         }
-        if (count >= 9) {
-            setWinner(0);
-            return;
+
+        if (y1 >= 0 && y2 >= 0) {
+            if (broads[y1][x]?.value === value && broads[y2][x].value === value) {
+                isWin = true;
+                return true;
+            }
         }
-    }, [wins, count]);
+
+        if (y3 <= size && y4 <= size) {
+            if (broads[y3][x]?.value === value && broads[y4][x].value === value) {
+                isWin = true;
+                return true;
+            }
+        }
+
+        if (!isWin) return Check_Cross_1(x, y, value, size);
+        else return isWin;
+    }
+
+    function Check_Cross_1(x: number, y: number, value: string, size: number) {
+        const x1 = x - 1;
+        const x2 = x - 2;
+        const x3 = x + 1;
+        const x4 = x + 2;
+
+        const y1 = y - 1;
+        const y2 = y - 2;
+        const y3 = y + 1;
+        const y4 = y + 2;
+
+        let isWin = false;
+
+        if (x1 >= 0 && y1 >= 0 && x3 <= size && y3 <= size) {
+            if (broads[y1][x1]?.value === value && broads[y3][x3]?.value === value) {
+                isWin = true;
+                return true;
+            }
+        }
+
+        if (x1 >= 0 && y1 >= 0 && x2 >= 0 && y2 >= 0) {
+            if (broads[y1][x1]?.value === value && broads[y2][x2]?.value === value) {
+                isWin = true;
+                return true;
+            }
+        }
+
+        if (x3 <= size && y3 <= size && x4 <= size && y4 <= size) {
+            if (broads[y3][x3]?.value === value && broads[y4][x4]?.value === value) {
+                isWin = true;
+                return true;
+            }
+        }
+
+        if (!isWin) return Check_Cross_2(x, y, value, size);
+        else return isWin;
+    }
+    function Check_Cross_2(x: number, y: number, value: string, size: number) {
+        const x1 = x - 1;
+        const x2 = x - 2;
+        const x3 = x + 1;
+        const x4 = x + 2;
+
+        const y1 = y - 1;
+        const y2 = y - 2;
+        const y3 = y + 1;
+        const y4 = y + 2;
+
+        if (x1 >= 0 && y3 <= size && x3 <= size && y1 >= 0) {
+            if (broads[y3][x1]?.value === value && broads[y1][x3]?.value === value) {
+                return true;
+            }
+        }
+
+        if (x1 >= 0 && y3 <= size && x2 >= 0 && y4 <= size) {
+            if (broads[y3][x1]?.value === value && broads[y4][x2]?.value === value) {
+                return true;
+            }
+        }
+
+        if (x3 <= size && y1 >= 0 && x4 <= size && y2 >= 0) {
+            if (broads[y1][x3]?.value === value && broads[y2][x4]?.value === value) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     useEffect(() => {
-        if (winner === -1) return;
+        if (winner === -1 && count === Math.pow(Broad.size, 2)) {
+            setWinner(0);
+        }
 
         if (winner === 10) SetTurn({ ...turnNow, x: (turnNow.x += 1) });
         if (winner === -10) SetTurn({ ...turnNow, o: (turnNow.o += 1) });
-    }, [winner]);
+    }, [winner, count]);
 
     function ClearBroad() {
-        setBroads([
-            [
-                { id: 1, index: 0, row: 0 },
-                { id: 2, index: 1, row: 0 },
-                { id: 3, index: 2, row: 0 },
-            ],
-            [
-                { id: 4, index: 0, row: 1 },
-                { id: 5, index: 1, row: 1 },
-                { id: 6, index: 2, row: 1 },
-            ],
-            [
-                { id: 7, index: 0, row: 2 },
-                { id: 8, index: 1, row: 2 },
-                { id: 9, index: 2, row: 2 },
-            ],
-        ]);
-        setWins([]);
+        const newBroads = [];
+        for (let x = 0; x < Broad.size; x++) {
+            const row = [];
+
+            for (let y = 0; y < Broad.size; y++) {
+                row.push({
+                    id: y,
+                    index: y,
+                    row: x,
+                    width: maxSize / Broad.size,
+                    height: maxSize / Broad.size,
+                });
+            }
+
+            newBroads.push(row);
+        }
+
+        setBroads(newBroads);
         setWinner(-1);
         setCount(0);
-
-        SetTurn({ ...turnNow, turn_now: true });
     }
 
     return (

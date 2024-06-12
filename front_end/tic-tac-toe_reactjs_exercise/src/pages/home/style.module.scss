@@ -18,4 +18,40 @@
         border-radius: 8px;
         border: 2px solid #dbdde1;
     }
+
+    .wrap {
+        width: var(--broad-width);
+    }
+
+    .wrap,
+    .input_w,
+    .wrap_create-table {
+        display: flex;
+        align-items: center;
+    }
+
+    .wrap_turn {
+        flex: 7;
+    }
+
+    .wrap_create-table {
+        flex: 3;
+        font-size: 18px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+
+        label {
+            white-space: nowrap;
+            margin-right: 5px;
+            font-weight: 500;
+        }
+
+        input {
+            padding: 5px 10px;
+            font-size: inherit;
+            max-width: 60px;
+            border-radius: 4px;
+            border: 1px solid black;
+        }
+    }
 }

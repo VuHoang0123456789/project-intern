@@ -3,11 +3,9 @@
     flex-direction: column;
     width: var(--broad-width);
     height: var(--broad-height);
-    border: 1px solid black;
 
     .wrap_broad-row {
         width: var(--broad-width);
-        height: calc(var(--broad-height) / 3);
 
         .broad_row {
             display: flex;
@@ -15,8 +13,6 @@
             height: 100%;
 
             .wrap_node {
-                width: calc(var(--broad-width) / 3);
-                height: calc(var(--broad-height) / 3);
                 border: 1px solid black;
             }
         }
